@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/app.js",
   "scripts": {
-    "start": "npx tsc --watch && node dist/app.js",
+    "start": "node dist/app.js",
     "dev": "nodemon dist/app.js",
     "build": "npx tsc --watch"
   },
