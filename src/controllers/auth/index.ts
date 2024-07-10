@@ -21,6 +21,7 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
     res.status(201).json({ token });
   } catch (error) {
     if (error instanceof Error) {
+      console.error('Error registering user:', error.message);
       res.status(500).json({ message: error.message });
     }
   }
@@ -46,6 +47,7 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
     res.status(200).json({ token });
   } catch (error) {
     if (error instanceof Error) {
+      console.error('Error logging in user:', error.message);
       res.status(500).json({ message: error.message });
     }
   }

@@ -20,10 +20,15 @@ export const authMiddleware = (
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
+      id: string;
+    };
     req.user = decoded;
     next();
   } catch (error) {
+    if (error instanceof Error) {
+      console.error('Error authorizing token:', error.message);
+    }
     res.status(401).json({ message: 'Authorization failed. Invalid token.' });
   }
 };
