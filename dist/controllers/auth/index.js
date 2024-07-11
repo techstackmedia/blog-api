@@ -27,7 +27,7 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const hashedPassword = yield bcryptjs_1.default.hash(password, 10);
         const newUser = new User_1.default({ name, email, password: hashedPassword });
         yield newUser.save();
-        const token = jsonwebtoken_1.default.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jsonwebtoken_1.default.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: '30d' });
         res.status(201).json({ token });
     }
     catch (error) {
@@ -51,7 +51,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res.status(400).json({ message: 'Invalid credentials' });
             return;
         }
-        const token = jsonwebtoken_1.default.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jsonwebtoken_1.default.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '30d' });
         res.status(200).json({ token });
     }
     catch (error) {

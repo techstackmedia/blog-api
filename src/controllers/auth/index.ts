@@ -17,7 +17,7 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
     const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
 
-    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET!, { expiresIn: '1h' });
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET!, { expiresIn: '30d' });
     res.status(201).json({ token });
   } catch (error) {
     if (error instanceof Error) {
@@ -43,7 +43,7 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, { expiresIn: '30d' });
     res.status(200).json({ token });
   } catch (error) {
     if (error instanceof Error) {

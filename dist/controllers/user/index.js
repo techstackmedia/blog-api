@@ -16,6 +16,7 @@ exports.listUsers = exports.getMe = exports.getUserById = void 0;
 const User_1 = __importDefault(require("../../models/User"));
 const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log('Request Params:', req.params);
         const user = yield User_1.default.findById(req.params.id);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
@@ -33,6 +34,7 @@ exports.getUserById = getUserById;
 const getMe = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
+        console.log('Authenticated User:', req.user);
         const user = yield User_1.default.findById((_a = req.user) === null || _a === void 0 ? void 0 : _a.id);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });

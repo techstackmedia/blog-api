@@ -8,7 +8,7 @@ import user from './routes/user';
 
 const app = express();
 config();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json());
