@@ -15,7 +15,7 @@ export const createPost = async (req: Request, res: Response): Promise<void> => 
       return;
     }
 
-    const newPost = new Post({ title, content, author: user._id });
+    const newPost = new Post({ title, content, author: user.name, authorId: user._id });
     await newPost.save();
     res.status(201).json(newPost);
   } catch (error) {
@@ -33,7 +33,7 @@ export const updatePost = async (req: Request, res: Response): Promise<void> => 
   console.log('Updating post with:', { id, title, content, author });
 
   try {
-    const user = await User.findById(author);
+    const user = await User.findOne({ name: author });
     if (!user) {
       console.error(`User not found: ${author}`);
       res.status(404).json({ message: 'User not found' });
@@ -42,7 +42,7 @@ export const updatePost = async (req: Request, res: Response): Promise<void> => 
 
     const updatedPost = await Post.findByIdAndUpdate(
       id,
-      { title, content, author: user._id },
+      { title, content, author: user.name, authorId: user._id },
       { new: true }
     );
     res.status(200).json(updatedPost);

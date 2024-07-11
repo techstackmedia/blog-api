@@ -25,7 +25,7 @@ const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             res.status(404).json({ message: 'User not found' });
             return;
         }
-        const newPost = new Post_1.default({ title, content, author: user._id });
+        const newPost = new Post_1.default({ title, content, author: user.name, authorId: user._id });
         yield newPost.save();
         res.status(201).json(newPost);
     }
@@ -42,13 +42,13 @@ const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     const { title, content, author } = req.body;
     console.log('Updating post with:', { id, title, content, author });
     try {
-        const user = yield User_1.default.findById(author);
+        const user = yield User_1.default.findOne({ name: author });
         if (!user) {
             console.error(`User not found: ${author}`);
             res.status(404).json({ message: 'User not found' });
             return;
         }
-        const updatedPost = yield Post_1.default.findByIdAndUpdate(id, { title, content, author: user._id }, { new: true });
+        const updatedPost = yield Post_1.default.findByIdAndUpdate(id, { title, content, author: user.name, authorId: user._id }, { new: true });
         res.status(200).json(updatedPost);
     }
     catch (error) {
